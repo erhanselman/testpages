@@ -1873,6 +1873,62 @@
 
       })
     </script>
+
+
+<!-- Accessibility Code for "erhanselman.github.io" -->
+<script>
+/*
+Want to customize your button? visit our documentation page:
+https://login.equalweb.com/custom-button
+*/
+window.interdeal = {
+    get sitekey (){ return "5325c7288936726afa698f6c4428a2ab"} ,
+    get domains(){
+        return {
+            "js": "https://cdn.equalweb.com/",
+            "acc": "https://access.equalweb.com/"
+        }
+    },
+    "Position": "left",
+    "Menulang": "EN",
+    "draggable": true,
+    "btnStyle": {
+        "vPosition": [
+            "80%",
+            "80%"
+        ],
+        "margin": [
+            "0",
+            "0"
+        ],
+        "scale": [
+            "0.5",
+            "0.5"
+        ],
+        "color": {
+            "main": "#1c4bb6",
+            "second": "#ffffff"
+        },
+        "icon": {
+            "outline": false,
+            "outlineColor": "#ffffff",
+            "type":  1 ,
+            "shape": "circle"
+        }
+    },
+                                  
+};
+
+(function(doc, head, body){
+    var coreCall             = doc.createElement('script');
+    coreCall.src             = interdeal.domains.js + 'core/5.2.4/accessibility.js';
+    coreCall.defer           = true;
+    coreCall.integrity       = 'sha512-EuBSvNEVtJiE0GAEIBk3f5CXEIRBX+My0TWG431iOl5KmATPwveYaUX8NftlPwBjDRsItN8g295hkfhsZoeJHQ==';
+    coreCall.crossOrigin     = 'anonymous';
+    coreCall.setAttribute('data-cfasync', true );
+    body? body.appendChild(coreCall) : head.appendChild(coreCall);
+})(document, document.head, document.body);
+</script>
   
 
 <div class="scroll-btn-observe"></div></body></html>
