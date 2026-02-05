@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+
+<html lang="en" style="--scrollbar-width:17px; --moz-scrollbar-thin:17px;">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+  <!--<base href="../">--><base href=".">
+
+  <title>Mobildev UrGe</title>
+
+  <!-- css *******************************************************************************************************************-->
+
+  <!-- include common vendor stylesheets & fontawesome -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/fontawesome.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/regular.min.css">
+  <link rel="stylesheet" type="text/css"href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/brands.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/solid.min.css">
+  
+  <!-- include fonts -->
+  <link rel="stylesheet" type="text/css" href="./assets/css/css">
+
+  <!-- ace.css -->
+  <link rel="stylesheet" type="text/css" href="./assets/css/ace.min.css">
+  <link rel="stylesheet" type="text/css" href="./assets/css/ace-themes.min.css">
+
+  <!-- favicon -->
+
+  <link rel="shortcut icon" href="./assets/images/fav.ico"/>
+
+<style>.flex-equal-sm > * {flex: 0 1 1% !important;}						 @media print {#id-ace-settings-modal {display: none !important;}}						 @media (hover: hover) { #id-ace-settings-modal:not(.show) .aside-header > .btn:hover > .fa { animation: 0.6s fa-spin ease-in-out; }}						 @media screen and (prefers-reduced-motion: reduce) { #id-ace-settings-modal:not(.show) .aside-header > .btn:hover > .fa { animation: none; } }</style><style type="text/css">/* Chart.js */
+@keyframes chartjs-render-animation{from{opacity:.99}to{opacity:1}}.chartjs-render-monitor{animation:chartjs-render-animation 1ms}.chartjs-size-monitor,.chartjs-size-monitor-expand,.chartjs-size-monitor-shrink{position:absolute;direction:ltr;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1}.chartjs-size-monitor-expand>div{position:absolute;width:1000000px;height:1000000px;left:0;top:0}.chartjs-size-monitor-shrink>div{position:absolute;width:200%;height:200%;left:0;top:0}</style></head>
+
+<style>
+  section {
+  scroll-margin-top: 120px; 
+  }
+
+  .video-container {
+  aspect-ratio: 16 / 9;
+}
+
+.video-container video {
+  width: 100%;
+  height: 100%;
+}
+
+</style>
+
+
+<style>
+     
+.frame-container {
+  width: 100%;
+  height: calc(100vh - 135px);     /* ekran yüksekliği */
+  overflow: hidden;
+  position: relative;
+}
+
+.frame-container iframe {
+  width: 100%;
+  height: calc(100vh - 75px); /* kırpma payı */
+  border-left:0;
+  border-bottom:0;
+  border-right: 1px solid #ccc;
+  position: relative;
+  top: -60px;
+}
+        
+</style>
+
+<!-- -css *******************************************************************************************************************-->
+
+ <body class="is-document-loaded">
+
+    <div class="body-container">
+
+      <!-- nav *******************************************************************************************************************-->
+
+      <nav class="navbar navbar-sm navbar-fixed-xl navbar-expand-lg navbar-white">
+
+        <div class="navbar-inner">
+
+          <div class="container container-plus">
+
+            <!-- bar & logo *******************************************************************************************************************-->
+
+            <div class="navbar-intro justify-content-xl-start bgc-transparent pr-lg-3 w-auto border-0">
+
+              <button type="button" class="btn btn-burger burger-arrowed static collapsed ml-2 d-flex d-xl-none btn-h-white" data-toggle-mobile="sidebar" data-target="#sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle sidebar">
+                <span class="bars text-dark"></span>
+              </button><!-- mobile sidebar toggler button -->
+
+            
+              <span class="navbar-brand text-dark ml-lg-2">
+                <img src="./assets/images/mobildev-logo-1.png" width="180" alt="Mobildev Logo" class="d-none">
+                <img src="./assets/images/mobildev-logo-5.svg" width="180" alt="Mobildev Logo" class="d-nonex">
+              </span>
+              <!-- /.navbar-brand -->
+
+            </div><!-- /.navbar-intro -->
+
+            <!-- -bar & logo *******************************************************************************************************************-->
+
+            <!-- breadcrumbs -->
+             <div class="navbar-content d-none d-xl-flex">
+              <ol class="breadcrumb pl-0 ml-0 mt-1">
+                <li class="breadcrumb-item text-dark text-600 text-100"><span>Ürünler</span><i class="fa fa-angle-right mr-2 ml-2 text-80"></i></span>Access</span></li>
+              </ol>
+            </div>
+
+            <!-- *******************************************************************************************************************-->
+
+            <!-- mobile #navbarMenu toggler button -->
+            <button class="navbar-toggler ml-1 mr-2 px-1" type="button" data-toggle="collapse" data-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navbar menu">
+              <span class="pos-rel">
+                  <img class="radius-3px" width="36" src="./assets/images/avatar.png" alt="Mobile Menu">                  
+              </span>
+            </button>
+
+            <!-- nav menu *******************************************************************************************************************-->
+
+            <div class="navbar-menu collapse navbar-collapse navbar-backdrop" id="navbarMenu">
+
+              <div class="navbar-nav">
+
+                <ul class="nav nav-compact has-active-border">
+
+                  <li class="nav-item dropdown dropdown-mega">
+
+                    <a class="nav-link dropdown-toggle px-lg-3" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                      <span class="text-600 text-100 text-dark">Ürünler</span>
+                       <i class="caret fa fa-angle-down d-none d-lg-block text-dark"></i>
+                       <i class="caret fa fa-angle-left d-lg-none d-block ml-auto text-dark"></i>
+                    </a>
+
+                    <div class="dropdown-menu dropdown-animated p-0 border-1 radius-2 shadow-none mt-2">
+                     
+                      <div class="tab-content tab-sliding p-0 border-0 radius-0 ">
+
+                        <div class="tab-pane mh-none show active px-md-0 pt-0" id="navbar-notif-tab-1" role="tabpanel">
+
+                          <div class="row">
+
+                            <div class="col-lg-3 col-12 p-2 p-lg-3 p-xl-4">
+
+                              <div class="d-flex align-items-center bgc-h-secondary-l4 radius-2 pt-3">
+
+                                <div class="pos-rel">
+                                   <span class="d-inline-block w-2 h-2 border-3 brc-dark radius-round mr-3 ml-3"></span>
+                                </div>
+
+                                <div>
+                                  <span class="d-block py-1 px-1 radius-1 no-underline text-dark text-600 text-100">
+                                  IVT
+                                  </span>
+                                  <p class="text-dark pl-1 text-80">
+                                     İzinli Veri Tabanı Yönetimi
+                                  </p>
+                                </div>
+
+                              </div>
+
+                              <div class="d-flex align-items-center bgc-h-secondary-l4 radius-2 pt-3">
+
+                                <div class="pos-rel">
+                                   <span class="d-inline-block w-2 h-2 border-3 brc-dark radius-round mr-3 ml-3"></span>
+                                </div>
+
+                                <div>
+                                  <span class="d-block py-1 px-1 radius-1 no-underline text-dark text-600 text-100">
+                                  IVT Lite
+                                  </span>
+                                  <p class="text-dark pl-1 text-80">
+                                     Ticari İletişim İzin Yönetimi
+                                  </p>
+                                </div>
+
+                              </div>
+
+                              <div class="d-flex align-items-center bgc-h-secondary-l4 radius-2 pt-3">
+
+                                <div class="pos-rel">
+                                   <span class="d-inline-block w-2 h-2 border-3 brc-dark radius-round mr-3 ml-3"></span>
+                                </div>
+
+                                <div>
+                                  <span class="d-block py-1 px-1 radius-1 no-underline text-dark text-600 text-100">
+                                  Ret Bildirimi
+                                  </span>
+                                  <p class="text-dark pl-1 text-80">
+                                     Ret Bildirimi Yönetimi
+                                  </p>
+                                </div>
+
+                              </div>
+
+                              <div class="d-flex align-items-center bgc-h-secondary-l4 radius-2 pt-3">
+
+                                <div class="pos-rel">
+                                   <span class="d-inline-block w-2 h-2 border-3 brc-dark radius-round mr-3 ml-3"></span>
+                                </div>
+
+                                <div>
+                                  <span class="d-block py-1 px-1 radius-1 no-underline text-dark text-600 text-100">
+                                  Cookie Management
+                                  </span>
+                                  <p class="text-dark pl-1 text-80">
+                                     Çerez Yönetimi Servisi
+                                  </p>
+                                </div>
+
+                              </div>
+
+                            </div><!-- .col 1 -->
+
+                            <div class="col-lg-3 col-12 p-2 p-lg-3 p-xl-4">
+
+                              <div class="d-flex align-items-center bgc-h-secondary-l4 radius-2 pt-3">
+
+                                <div class="pos-rel">
+                                   <span class="d-inline-block w-2 h-2 border-3 brc-dark radius-round mr-3 ml-3"></span>
+                                </div>
+
+                                <div>
+                                  <span class="d-block py-1 px-1 radius-1 no-underline text-dark text-600 text-100">
+                                  Acil Care 
+                                  </span>
+                                  <p class="text-dark pl-1 text-80">
+                                     Acil Bildirim Yönetimi
+                                  </p>
+                                </div>
+
+                              </div>
+
+                              <div class="d-flex align-items-center bgc-h-secondary-l4 radius-2 pt-3">
+
+                                <div class="pos-rel">
+                                   <span class="d-inline-block w-2 h-2 border-3 brc-dark radius-round mr-3 ml-3"></span>
+                                </div>
+
+                                <div>
+                                  <span class="d-block py-1 px-1 radius-1 no-underline text-dark text-600 text-100">
+                                  Kısa URL 
+                                  </span>
+                                  <p class="text-dark pl-1 text-80">
+                                     Kişiselleştirilmiş Kısa Link Yönetimi
+                                  </p>
+                                </div>
+
+                              </div>
+
+                              <div class="d-flex align-items-center bgc-h-secondary-l4 radius-2 pt-3">
+
+                                <div class="pos-rel">
+                                   <span class="d-inline-block w-2 h-2 border-3 brc-dark radius-round mr-3 ml-3"></span>
+                                </div>
+
+                                <div>
+                                  <span class="d-block py-1 px-1 radius-1 no-underline text-dark text-600 text-100">
+                                  Access <span class="badge bgc-danger text-white">Yeni</span>
+                                  </span>
+                                  <p class="text-dark pl-1 text-80">
+                                     Erişilebilirlik Yönetimi
+                                  </p>
+                                </div>
+
+                              </div>
+
+                              <div class="d-flex align-items-center bgc-h-secondary-l4 radius-2 pt-3">
+
+                                <div class="pos-rel">
+                                   <span class="d-inline-block w-2 h-2 border-3 brc-dark radius-round mr-3 ml-3"></span>
+                                </div>
+
+                                <div>
+                                  <span class="d-block py-1 px-1 radius-1 no-underline text-dark text-600 text-100">
+                                  Cookie Checker <span class="badge bgc-blue text-white">Geliştiriliyor</span>
+                                  </span>
+                                  <p class="text-dark pl-1 text-80">
+                                     Cookie Denetim Sistemi
+                                  </p>
+                                </div>
+
+                              </div>
+
+                              
+
+                            </div><!-- .col 2 -->
+
+                            <div class="col-lg-3 col-12 p-2 p-lg-3 p-xl-4">
+
+                              <div class="d-flex align-items-center bgc-h-secondary-l4 radius-2 pt-3">
+
+                                <div class="pos-rel">
+                                   <span class="d-inline-block w-2 h-2 border-3 brc-dark radius-round mr-3 ml-3"></span>
+                                </div>
+
+                                <div>
+                                  <span class="d-block py-1 px-1 radius-1 no-underline text-dark text-600 text-100">
+                                  SMS Marketing Suite
+                                  </span>
+                                  <p class="text-dark pl-1 text-80">
+                                     SMS Pazarlama Araçları
+                                  </p>
+                                </div>
+
+                              </div>
+
+                              <div class="d-flex align-items-center bgc-h-secondary-l4 radius-2 pt-3">
+
+                                <div class="pos-rel">
+                                   <span class="d-inline-block w-2 h-2 border-3 brc-dark radius-round mr-3 ml-3"></span>
+                                </div>
+
+                                <div>
+                                  <span class="d-block py-1 px-1 radius-1 no-underline text-dark text-600 text-100">
+                                  E-mail Marketing Suite
+                                  </span>
+                                  <p class="text-dark pl-1 text-80">
+                                     E-posta Pazarlama Araçları
+                                  </p>
+                                </div>
+
+                              </div>
+
+                              <div class="d-flex align-items-center bgc-h-secondary-l4 radius-2 pt-3">
+
+                                <div class="pos-rel">
+                                   <span class="d-inline-block w-2 h-2 border-3 brc-dark radius-round mr-3 ml-3"></span>
+                                </div>
+
+                                <div>
+                                  <span class="d-block py-1 px-1 radius-1 no-underline text-dark text-600 text-100">
+                                  Hedefli Mesaj
+                                  </span>
+                                  <p class="text-dark pl-1 text-80">
+                                     Hedef Kitleye Mesaj Gönderimi
+                                  </p>
+                                </div>
+
+                              </div>
+
+                              <div class="d-flex align-items-center bgc-h-secondary-l4 radius-2 pt-3">
+
+                                <div class="pos-rel">
+                                   <span class="d-inline-block w-2 h-2 border-3 brc-dark radius-round mr-3 ml-3"></span>
+                                </div>
+
+                                <div>
+                                  <span class="d-block py-1 px-1 radius-1 no-underline text-dark text-600 text-100">
+                                  Anında Cevap
+                                  </span>
+                                  <p class="text-dark pl-1 text-80">
+                                     Hızlı Cevap Toplama
+                                  </p>
+                                </div>
+
+                              </div>
+
+
+                            </div><!-- .col 3 -->
+
+                            <div class="col-lg-3 col-12 p-2 p-lg-3 p-xl-4">
+
+                              <div class="d-flex align-items-center bgc-h-secondary-l4 radius-2 pt-3">
+
+                                <div class="pos-rel">
+                                   <span class="d-inline-block w-2 h-2 border-3 brc-dark radius-round mr-3 ml-3"></span>
+                                </div>
+
+                                <div>
+                                  <span class="d-block py-1 px-1 radius-1 no-underline text-dark text-600 text-100">
+                                  Anket
+                                  </span>
+                                  <p class="text-dark pl-1 text-80">
+                                     Anket ile Cevap Toplama
+                                  </p>
+                                </div>
+
+                              </div>
+
+                              <div class="d-flex align-items-center bgc-h-secondary-l4 radius-2 pt-3">
+
+                                <div class="pos-rel">
+                                   <span class="d-inline-block w-2 h-2 border-3 brc-dark radius-round mr-3 ml-3"></span>
+                                </div>
+
+                                <div>
+                                  <span class="d-block py-1 px-1 radius-1 no-underline text-dark text-600 text-100">
+                                  Geri Bildir.in
+                                  </span>
+                                  <p class="text-dark pl-1 text-80">
+                                    Geri Bİldirim Toplama
+                                  </p>
+                                </div>
+
+                              </div>
+
+                              <div class="d-flex align-items-center bgc-h-secondary-l4 radius-2 pt-3">
+
+                                <div class="pos-rel">
+                                   <span class="d-inline-block w-2 h-2 border-3 brc-dark radius-round mr-3 ml-3"></span>
+                                </div>
+
+                                <div>
+                                  <span class="d-block py-1 px-1 radius-1 no-underline text-dark text-600 text-100">
+                                  Landing Page
+                                  </span>
+                                  <p class="text-dark pl-1 text-80">
+                                     Etkileşime Geçiren Açılış Sayfaları
+                                  </p>
+                                </div>
+
+                              </div>
+
+                              <div class="d-flex align-items-center bgc-h-secondary-l4 radius-2 pt-3">
+
+                                <div class="pos-rel">
+                                   <span class="d-inline-block w-2 h-2 border-3 brc-dark radius-round mr-3 ml-3"></span>
+                                </div>
+
+                                <div>
+                                  <span class="d-block py-1 px-1 radius-1 no-underline text-dark text-600 text-100">
+                                  SMS Inbox
+                                  </span>
+                                  <p class="text-dark pl-1 text-80">
+                                     Hızlı ve Çift Yönlü SMS İletişim
+                                  </p>
+                                </div>
+
+                              </div>
+
+                              
+
+                              
+
+                            </div><!-- .col 4 -->
+
+                          </div><!-- .row -->
+           
+                        </div><!-- .tab-pane : urunler -->
+
+                      </div><!-- .tab-content : urunler -->
+
+                    </div><!-- /.navbar dropdown-menu -->
+
+                  </li> <!-- /.navbar-item urunler -->
+
+
+
+                </ul><!-- /.navbar-nav menu -->
+
+              </div><!-- /.navbar-nav -->
+
+            </div><!-- /.navbar-menu.navbar-collapse -->
+         
+            <!-- -nav menu *******************************************************************************************************************-->
+
+          </div><!-- /.container -->
+
+        </div><!-- /.navbar-inner -->
+
+      </nav>
+
+      <!-- -nav *******************************************************************************************************************-->
+      
+      <div id="sidebar" class="sidebar sidebar-fixed sidebar-hover sidebar-h sidebar-white sidebar-top has-open sidebar-backdrop" data-swipe="true" data-backdrop="true" data-dismiss="true">
+        
+        <div class="sidebar-inner border-r-0 border-b-1 brc-secondary-l2">
+         
+          <div class="container container-plus px-0 d-flex flex-column flex-xl-row">
+
+            <div class="flex-grow-1 d-xl-flex flex-xl-row ace-scroll" data-ace-scroll="{}">
+              <!-- ace-scroll is not applied in desktop view, but it's used in mobile view -->
+
+              <!-- ul *******************************************************************************************************************-->
+             
+              <ul class="nav nav-spaced text-center has-active-border active-on-top">
+
+                <li class="nav-item-caption">
+                  <span class="fadeable pl-3 text-primary text-600 text-120">Access</span>
+                  <span class="fadeinable mt-n2 text-125">…</span>
+                </li>
+
+                <li class="nav-item">
+
+                  <a href="index.html" class="nav-link bgc-white text-dark text-100">
+                    <span class="nav-text fadeable">
+                	  <span>Giriş</span>
+                    </span>
+                  </a>
+
+                  <b class="sub-arrow"></b>
+
+                </li>
+
+                
+                <li class="nav-item active">
+
+                  <a href="access-widget.html" class="nav-link bgc-white text-dark text-100">
+                    <span class="nav-text fadeable">
+                	  <span>Widget</span>
+                    </span>
+                  </a>
+
+                  <b class="sub-arrow"></b>
+
+                </li>
+                <li class="nav-item">
+
+                  <a href="access-sitechecker.html" class="nav-link bgc-white text-dark text-100">
+                    <span class="nav-text fadeable">
+                	  <span>Site Checker</span>
+                    </span>
+                  </a>
+
+                  <b class="sub-arrow"></b>
+
+                </li>
+                 <li class="nav-item">
+
+                  <a href="access-uygulama.html" class="nav-link bgc-white text-dark text-100">
+                    <span class="nav-text fadeable">
+                	  <span>Uygulama</span>
+                    </span>
+                  </a>
+
+                  <b class="sub-arrow"></b>
+
+                </li>
+                 <li class="nav-item">
+
+                  <a href="#" class="nav-link bgc-white text-dark text-100">
+                    <span class="nav-text fadeable">
+                	  <span>Kurulum</span>
+                    </span>
+                  </a>
+
+                  <b class="sub-arrow"></b>
+
+                </li>
+                 <li class="nav-item">
+
+                  <a href="#" class="nav-link bgc-white text-dark text-100">
+                    <span class="nav-text fadeable">
+                	  <span>S.S.S.</span>
+                    </span>
+                  </a>
+
+                  <b class="sub-arrow"></b>
+
+                </li>
+                 <li class="nav-item">
+
+                  <a href="#" class="nav-link bgc-white text-dark text-100">
+                    <span class="nav-text fadeable">
+                	  <span>Tarifelendirme</span>
+                    </span>
+                  </a>
+
+                  <b class="sub-arrow"></b>
+
+                </li>
+
+              </ul>
+
+              <!-- -ul *******************************************************************************************************************-->
+
+            </div> <!-- .ace-scroll -->
+
+            <!-- left sidebar sidebar-section-item d-none *******************************************************************************************************************-->
+
+            <div class="sidebar-section d-none d-xl-flex ml-xl-auto pl-xl-4">
+
+              <!-- the logout and settings button, only shown in desktop view -->
+
+              <div class="sidebar-section-item fadeable-below fadeable-center">
+                <div class="fadeinable w-auto">
+                 <a href="#" class="btn btn-lg btn-outline-light btn-h-lighter-secondary radius-2 text-600 text-100 px-3 mb-1 text-dark">
+                        <i class="fa fa-calendar-alt mr-1"></i>
+                          Güncellemeler
+                 </a>
+                </div>
+              </div>
+
+              <div class="sidebar-section-item fadeable-below fadeable-center ml-xl-1 d-none">
+                <div class="fadeinable w-auto">
+                  <a href="#" title="" class="btn btn-outline-warning btn-brc-tp radius-3px py-2" data-toggle="modal" data-target="#id-ace-settings-modal" data-original-title="Settings">
+                    <i class="fa fa-cog text-140"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- -left sidebar sidebar-section-item d-none *******************************************************************************************************************-->
+
+            <!-- mobil menu sidebar d-none *******************************************************************************************************************-->
+            <div class="sidebar-section d-xl-none ml-xl-auto d-none">
+              <!-- sidebar footer, only show in mobile view -->
+              <div class="sidebar-section-item fadeable-left fadeable-top">
+
+                <div class="fadeinable">
+                  <button type="button" class="btn btn-primary btn-bold radius-1">
+                    <i class="fa fa-cloud"></i>
+                  </button>
+                </div>
+
+                <div id="sidebar-footer" class="fadeable text-center border-t-1 brc-secondary-l2 w-95">
+                  <div class="py-2">
+                    <button type="button" class="btn btn-primary px-5 btn-bold radius-1">
+                      Yenilikler
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- -mobil menu sidebar d-none *******************************************************************************************************************-->
+
+          </div><!-- .sidebar container -->
+        </div><!-- .sidebar-inner -->
+      </div>
+
+      <div class="main-container">
+
+        <div role="main" class="main-content bgc-white">
+
+
+
+           <div class="page-content container container-plus p-0">
+
+            
+
+          <div class="row">
+              
+              <div class="col-lg-9 col-12 pl-lg-0 pr-lg-2">
+
+                 
+
+                    <div class="frame-container"> 
+                      <iframe src="https://docs.google.com/document/d/19D0nD_1-Hu5e_nhG_JJm8Y4OZYxzSFlS1UNnAxNvXuQ"></iframe>
+                    </div>
+                   
+                 
+
+              </div>
+
+              <div class="col-lg-3 col-12 pr-lg-0 mt-3 mt-lg-0">
+
+                 <div class="card radius-2 border-1 bgc-white">
+
+                  <div class="card-header radius-2 border-0 bgc-white">
+                    <h5 class="card-title text-600 text-110 text-dark">
+                   İlgili Konular
+                    </h5>
+                  </div>
+
+                  <div class="card-body pt-0 pb-0">
+                  
+                    <a href="https://www.aile.gov.tr/eyhgm/haberler/web-siteleri-ve-mobil-uygulamalarin-erisilebilirligi-cumhurbaskanligi-genelgesi-yayimlandi/" target="_blank" class="btn btn-lg btn-outline-light btn-h-lighter-secondary radius-2  text-90  border-0 px-3 mb-1 text-dark"><i class="far fa-hand-point-right"></i> Mevzuat Genelgesi</a>
+                    <br>
+                    <a href="https://www.w3.org/TR/WCAG22/" target="_blank" class="btn btn-lg btn-outline-light btn-h-lighter-secondary radius-2  text-90  border-0 px-3 mb-1 text-dark"><i class="far fa-hand-point-right"></i> WCAG Dökümanı</a>
+                   
+                  </div><!-- /.card-body -->
+
+                </div><!-- /.card -->
+
+                
+
+                
+               
+              </div>
+            </div>
+
+
+
+
+
+           
+          </div> <!-- .page-content -->
+
+
+          
+          <!-- *******************************************************************************************************************-->
+
+         <footer class="footer d-none">
+            <div class="footer-inner">
+              <div class="h-100 pt-4 border-t-1 brc-secondary-l2 bgc-white">
+                 <img src="./assets/images/mobildev-logo-1.png" width="120" alt="Mobildev Logo">
+                <span class="text-secondary text-70 text-600"> © 2026</span>
+              </div>
+            </div><!-- .footer-inner -->
+          </footer>
+
+          <div class="footer-tools">
+            <a href="#" class="btn-scroll-up btn btn-primary px-25 py-2 text-95 radius-1 mb-2 mr-2">
+              <i class="fa fa-angle-double-up w-2 h-2"></i>
+            </a>
+          </div>
+
+          <!-- *******************************************************************************************************************-->
+
+        </div> <!-- .main-content -->
+
+      </div> <!-- .main-container -->
+      
+    </div> <!-- .body-container -->
+
+    
+   <!-- *******************************************************************************************************************-->
+
+    <!-- include common vendor scripts used in  -->
+    <script src="./assets/js/jquery.min.js"></script>
+    <script src="./assets/js/popper.min.js"></script>
+    <script src="./assets/js/bootstrap.min.js"></script>
+
+     <!-- include ace.js -->
+    <script src="./assets/js/ace.min.js"></script>
+
+
+   <!-- *******************************************************************************************************************-->
+
+    <script>
+     jQuery(function($) {
+
+     })
+
+    var host="file:///E:/urge/src/main/webapp/index.html";
+    
+    function copyLink(v) {
+     const value = host+"#"+v;
+     navigator.clipboard.writeText(value).then(() => {
+    
+     });
+    }
+
+    </script>
+  
+
+  <div class="scroll-btn-observe"></div>
+ </body>
+</html>
