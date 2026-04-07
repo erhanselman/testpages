@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Metinden Video Oluşturma</title>
+<script src="https://cdn.jsdelivr.net/npm/gtts-js@latest/dist/gtts.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.11.8/dist/ffmpeg.min.js"></script>
+</head>
+<body>
+
+<h1>Metinden Video Oluştur</h1>
+<textarea id="textInput" rows="4" cols="50">Merhaba, bu bir test videosudur. FFmpeg ve TTS ile üretildi.</textarea>
+<br>
+<input type="file" id="bgInput" accept="image/*">
+<br><br>
+<button id="generateBtn">Video Oluştur</button>
+
+<script>
+const { createFFmpeg, fetchFile } = FFmpeg;
+const ffmpeg = createFFmpeg({ log: true });
+
+async function generateVideo() {
+  const text = document.getElementById('textInput').value;
+  const bgFile = document.getElementById('bgInput').files[0];
+
+  if (!bgFile) { alert("Arka plan resmi seçin"); return; }
+
+  // 1️⃣ TTS → MP3
+  const gtts = new gTTS(text, 'tr');
+  const mp3Blob = await gtts.save(); // Tarayıcıda mp3 Blob
+  const mp3File = new File([mp3Blob], "audio.mp3");
+
+  // 2️⃣ SRT üret (basit, her cümle 3 saniye)
+  const sentences = text.split(/[.!?]\s+/);
+  let currentTime = 0;
+  let srtContent = "";
+  function formatTime(sec) {
+    const h = String(Math.floor(sec / 3600)).padStart(2,'0');
+    const m = String(Math.floor((sec % 3600)/60)).padStart(2,'0');
+    const s = String(Math.floor(sec % 60)).padStart(2,'0');
+    return `${h}:${m}:${s},000`;
+  }
+  sentences.forEach((line, i) => {
+    const start = formatTime(currentTime);
+    const end = formatTime(currentTime + 3);
+    srtContent += `${i+1}\n${start} --> ${end}\n${line.trim()}\n\n`;
+    currentTime += 3;
+  });
+  const srtFile = new File([srtContent], "subtitles.srt");
+
+  // 3️⃣ FFmpeg → Video oluştur
+  await ffmpeg.load();
+  ffmpeg.FS('writeFile', 'bg.png', await fetchFile(bgFile));
+  ffmpeg.FS('writeFile', 'audio.mp3', await fetchFile(mp3File));
+  ffmpeg.FS('writeFile', 'subtitles.srt', await fetchFile(srtFile));
+
+  await ffmpeg.run(
+    '-loop','1','-i','bg.png',
+    '-i','audio.mp3',
+    '-vf','subtitles=subtitles.srt:charenc=UTF-8',
+    '-c:v','libx264','-c:a','aac','-pix_fmt','yuv420p','-shortest',
+    'output.mp4'
+  );
+
+  const data = ffmpeg.FS('readFile','output.mp4');
+  const url = URL.createObjectURL(new Blob([data.buffer], {type:'video/mp4'}));
+
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'video.mp4';
+  a.click();
+}
+
+document.getElementById('generateBtn').addEventListener('click', generateVideo);
+</script>
+
+</body>
+</html>
