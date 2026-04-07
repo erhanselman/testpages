@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Video + TTS Altyazı</title>
+<style>
+body { font-family: Arial; text-align: center; background: #111; color: white; }
+video { width: 60%; margin: 20px auto; }
+button, input, textarea { margin: 10px; padding: 10px; font-size: 16px; }
+textarea { width: 60%; height: 80px; }
+</style>
+</head>
+<body>
+
+<h2>🎬 Video + TTS Dublaj + Altyazı</h2>
+
+<input type="file" id="videoInput" accept="video/*"><br>
+<video id="video" controls></video><br>
+
+<textarea id="ttsText" placeholder="Dublaj ve altyazı için metin girin..."></textarea><br>
+<button onclick="generateVideoWithSubtitles()">Dublaj & Altyazı Oluştur</button><br>
+
+<script src="https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.11.2/dist/ffmpeg.min.js"></script>
+<script>
+const ffmpeg = FFmpeg.createFFmpeg({
+    log: true,
+    corePath: "./ffmpeg-core.js" // core dosyayı local olarak koy
+});
+
+let selectedFile;
+const videoEl = document.getElementById("video");
+const inputEl = document.getElementById("videoInput");
+
+inputEl.addEventListener("change", () => {
+    selectedFile = inputEl.files[0];
+    videoEl.src = URL.createObjectURL(selectedFile);
+});
+
+// ---- TTS + FFmpeg Altyazı ----
+async function generateVideoWithSubtitles() {
+    if (!selectedFile) return alert("Önce video seçin!");
+    const text = document.getElementById("ttsText").value;
+    if (!text) return alert("Önce metin girin!");
+
+    await ffmpeg.load();
+
+    // 1️⃣ Video dosyasını FS'e yaz
+    ffmpeg.FS('writeFile', 'video.mp4', await FFmpeg.fetchFile(selectedFile));
+
+    // 2️⃣ Web Speech API ile ses üret
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'tr-TR';
+
+    // Sesin kaydedilmesi için MediaRecorder
+    const audioStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    const chunks = [];
+    const mediaRecorder = new MediaRecorder(audioStream);
+    mediaRecorder.ondataavailable = e => chunks.push(e.data);
+    mediaRecorder.start();
+
+    speechSynthesis.speak(utterance);
+
+    const ttsPromise = new Promise(resolve => {
+        utterance.onend = () => {
+            mediaRecorder.stop();
+        };
+        mediaRecorder.onstop = () => resolve(new Blob(chunks, { type: 'audio/webm' }));
+    });
+
+    const ttsBlob = await ttsPromise;
+    const ttsFile = new File([ttsBlob], "tts.webm");
+    ffmpeg.FS('writeFile', 'tts.webm', await FFmpeg.fetchFile(ttsFile));
+
+    // 3️⃣ Altyazı dosyası oluştur (SRT formatı)
+    const srtContent = `1
+00:00:00,000 --> 00:00:10,000
+${text}`;
+
+    ffmpeg.FS('writeFile', 'subtitles.srt', srtContent);
+
+    // 4️⃣ FFmpeg ile video + TTS ses + altyazı birleştir
+    await ffmpeg.run(
+        '-i', 'video.mp4',
+        '-i', 'tts.webm',
+        '-vf', 'subtitles=subtitles.srt:force_style=\'FontName=Arial,FontSize=24,PrimaryColour=&HFFFFFF&\'',
+        '-c:a', 'aac',
+        '-shortest',
+        'final.mp4'
+    );
+
+    // 5️⃣ Sonucu indir
+    const data = ffmpeg.FS('readFile', 'final.mp4');
+    const url = URL.createObjectURL(new Blob([data.buffer], { type: 'video/mp4' }));
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'video_subtitled.mp4';
+    a.click();
+}
+</script>
+
+</body>
+</html>
