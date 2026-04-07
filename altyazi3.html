@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Text → Video</title>
+
+<script src="https://cdn.jsdelivr.net/npm/gtts-js@latest/dist/gtts.min.js"></script>
+<script>
+const gtts = new gTTS("Merhaba, test videosu");
+gtts.save("testspeech.mp3").then(() => console.log("MP3 oluşturuldu"));
+</script>
+
+</head>
+<body>
+
