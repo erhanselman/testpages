@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>FFmpeg.wasm Video İşleme</title>
+<style>
+body { font-family: Arial; text-align: center; background: #111; color: white; }
+video { width: 60%; margin: 20px auto; }
+button, input { margin: 10px; padding: 10px 20px; font-size: 16px; }
+</style>
+</head>
+<body>
+
+<h2>🎬 FFmpeg.wasm Video İşleme</h2>
+
+<input type="file" id="videoInput" accept="video/*"><br>
+<video id="video" controls></video><br>
+
+<button onclick="convertToMP3()">Video → MP3</button>
+<button onclick="trimVideo()">Kırp (5–10s)</button>
+<button onclick="resizeVideo()">Resize (640x360)</button>
+<button onclick="extractFrames()">Frame Çıkar</button>
+
+<script src="https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.11.2/dist/ffmpeg.min.js"></script>
+<script>
+const ffmpeg = FFmpeg.createFFmpeg({
+    log: true,
+    corePath: "https://unpkg.com/@ffmpeg/core@0.12.0/dist/ffmpeg-core.js"
+});
+
+let selectedFile;
+const videoEl = document.getElementById("video");
+const inputEl = document.getElementById("videoInput");
+
+inputEl.addEventListener("change", () => {
+    selectedFile = inputEl.files[0];
+    videoEl.src = URL.createObjectURL(selectedFile);
+});
+
+async function convertToMP3() {
+    if (!selectedFile) return alert("Önce video seçin!");
+    await ffmpeg.load();
+    ffmpeg.FS('writeFile', 'video.mp4', await FFmpeg.fetchFile(selectedFile));
+    await ffmpeg.run('-i', 'video.mp4', 'audio.mp3');
+    const data = ffmpeg.FS('readFile', 'audio.mp3');
+    const url = URL.createObjectURL(new Blob([data.buffer], { type: 'audio/mpeg' }));
+    downloadFile(url, 'audio.mp3');
+}
+
+async function trimVideo() {
+    if (!selectedFile) return alert("Önce video seçin!");
+    await ffmpeg.load();
+    ffmpeg.FS('writeFile', 'video.mp4', await FFmpeg.fetchFile(selectedFile));
+    await ffmpeg.run('-i', 'video.mp4', '-ss', '5', '-to', '10', 'cut.mp4');
+    const data = ffmpeg.FS('readFile', 'cut.mp4');
+    const url = URL.createObjectURL(new Blob([data.buffer], { type: 'video/mp4' }));
+    downloadFile(url, 'cut.mp4');
+}
+
+async function resizeVideo() {
+    if (!selectedFile) return alert("Önce video seçin!");
+    await ffmpeg.load();
+    ffmpeg.FS('writeFile', 'video.mp4', await FFmpeg.fetchFile(selectedFile));
+    await ffmpeg.run('-i', 'video.mp4', '-vf', 'scale=640:360', 'resized.mp4');
+    const data = ffmpeg.FS('readFile', 'resized.mp4');
+    const url = URL.createObjectURL(new Blob([data.buffer], { type: 'video/mp4' }));
+    downloadFile(url, 'resized.mp4');
+}
+
+async function extractFrames() {
+    if (!selectedFile) return alert("Önce video seçin!");
+    await ffmpeg.load();
+    ffmpeg.FS('writeFile', 'video.mp4', await FFmpeg.fetchFile(selectedFile));
+    await ffmpeg.run('-i', 'video.mp4', 'frame_%03d.png');
+    for (let i = 1; i <= 5; i++) {
+        try {
+            const data = ffmpeg.FS('readFile', `frame_00${i}.png`);
+            const url = URL.createObjectURL(new Blob([data.buffer], { type: 'image/png' }));
+            downloadFile(url, `frame_00${i}.png`);
+        } catch {}
+    }
+}
+
+function downloadFile(url, filename) {
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    a.click();
+}
+</script>
+
+</body>
+</html>
